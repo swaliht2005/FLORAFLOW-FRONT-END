@@ -1,4 +1,4 @@
-import React from "react";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import Loginsignupimg from "../assets/images/Loginsignupimg.png";
@@ -11,7 +11,7 @@ const SignUp = () => {
     try {
       console.log("Form Data:", data);
       
-      const response = await fetch("http://localhost:5000/api/register", {
+      const response = await fetch("http://localhost:5000/api/user/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

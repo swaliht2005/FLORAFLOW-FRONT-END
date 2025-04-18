@@ -1,12 +1,6 @@
 
 import Navebar from '../Combonents/Navebar';
-
-
-
-
-
 import HomeBanner from './HomeBanner';
-
 import Album from './Album';
 import Footer from '../Combonents/Footer';
 import Cards from './Cards';

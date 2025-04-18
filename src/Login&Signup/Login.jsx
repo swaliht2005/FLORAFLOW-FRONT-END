@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Loginsignupimg from "../assets/images/Loginsignupimg.png";
 
@@ -14,7 +14,7 @@ const Login = () => {
     setError(""); // Clear previous errors
 
     try {
-      const response = await fetch("http://localhost:5000/api/login", {
+      const response = await fetch("http://localhost:5000/api/user/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -53,7 +53,7 @@ const Login = () => {
         <h2 className="text-lg sm:text-xl font-bold mb-4 sm:mb-6 text-center text-slate-200">
           LOGIN
         </h2>
-        {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+      
         <form onSubmit={handleLogin} className="w-full">
           {/* Email Field */}
           <div className="mb-4">
@@ -85,6 +85,7 @@ const Login = () => {
               required
               className="mt-1 block w-full px-4 py-2 text-sm border rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 text-gray-700"
             />
+              {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
           </div>
 
           {/* Login Button */}
