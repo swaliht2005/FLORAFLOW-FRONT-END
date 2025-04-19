@@ -58,7 +58,7 @@ function Cards() {
                 </button>
                 <div className="flex items-center flex-col h-[250px] lg:h-[300px]">
                   <img
-                    src={cart.url}
+                    src={`http://localhost:5000/api/seller/${cart._id}/image`}
                     alt={cart.PlantName || 'Product'}
                     className="h-full w-full object-cover rounded mb-4"
                     onError={(e) => (e.target.src = '/fallback-image.jpg')}
