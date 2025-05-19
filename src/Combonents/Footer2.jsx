@@ -1,10 +1,10 @@
 
 import React from 'react'
 import { Link } from 'react-router-dom'
-function Footer2() {
+function Footer2(id = '') {
   return (
     <>
-  <div className="w-full ">
+  <div className={`w-full   ${id}`}>
     <footer className="bg-gray-900">
   <div className="mx-auto max-w-screen px-4 pb-8 pt-16 sm:px-6 lg:px-8 lg:pt-24">
     <div className="text-center">

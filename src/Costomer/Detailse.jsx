@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import details from '../assets/images/details.jpg'
 import { useState } from "react";
 import Footer2 from "../Combonents/Footer2";
+import SubscribeButton from "../Combonents/SubscribeButton";
 
 function Detailse() {
   const location = useLocation();
@@ -34,8 +35,9 @@ function Detailse() {
           <div className="w-full h-full lg:w-full max-w-4xl bg-white rounded-lg shadow-md p-3 lg:p-12 flex flex-col lg:flex-row items-center gap-8 lg:gap-12 mt-20 sm:mt-0">
             {/* Image Section */}
             <div className="w-full lg:w-1/2 flex flex-col items-center">
+            <SubscribeButton/>
               <img
-                src={cart.url}
+                src={`http://localhost:5000/api/seller/${cart._id}/image`}
                 alt={cart.PlantName || "Plant Image"}
                 className="rounded h-auto max-w-full lg:max-w-md object-cover shadow-sm sm:pb-0"
               />
@@ -55,14 +57,19 @@ function Detailse() {
                 {cart.PlantName || "Unknown Plant"}
               </h1>
               <p className="text-gray-600 mt-4">
-                Planting Day: {cart.plantingDay || "N/A"}
+                Planting Day: {cart.PlantingDay || "N/A"}
               </p>
-              <p className="text-gray-600 mt-2">Height: {cart.Height || "Unknown"}</p>
+              <p className="text-gray-600 mt-2">Height: {cart.PlantingHeight|| "Unknown"}</p>
               {cart.price && (
                 <p className="text-xl lg:text-2xl font-bold text-green-600 mt-4">
                   ₹{cart.price}
                 </p>
+                
               )}
+               <p className="text-gray-600 mt-4 text-sm lg:text-base">
+                About: {cart.PlantAbout || "No description available"}
+              </p>
+
 
               {/* Actions */}
               <div className="flex flex-col gap-6 mt-8">

@@ -13,14 +13,14 @@ function HomePage() {
     <div className="bg-gray-100 min-h-screen overflow-hidden">
     {/* Navbar */}
     <div className=" w-full">
-      <Navebar id="fixed z-20" />
+      <Navebar id="fixed z-20 st" />
     </div>
       <HomeBanner />
     {/* Cards Section */}
       <Album/>
    <div className="h-auto  lg:bottom-96  sm:bottom-0">
     
-    <Cards h="500px" w="100%" />
+    <Cards h="500px" w="100%"  edit='hidden' delt='hidden'/>
     </div>
     {/* Footer */}
    <Footer/>
