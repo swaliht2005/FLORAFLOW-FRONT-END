@@ -1,5 +1,4 @@
 
-
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSearch } from '../context/SearchContext';
@@ -32,15 +31,14 @@ function Cards({ edit = '', delt = '' }) {
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const url = `http://localhost:5000/api/seller/${
+        const url = `http://localhost:5000/api/seller${
           searchQuery ? `?search=${encodeURIComponent(searchQuery)}` : ''
         }`;
         const response = await fetch(url);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
-        const data = await response.json();
-        const products = Array.isArray(data) ? data : Array.isArray(data.data) ? data.data : [];
+        const products = await response.json();
         setCarts(products);
         setFilteredCarts(products);
       } catch (error) {
@@ -69,7 +67,6 @@ function Cards({ edit = '', delt = '' }) {
         const errorData = await response.json();
         throw new Error(errorData.error || `HTTP error! Status: ${response.status}`);
       }
-      const result = await response.json();
       setCarts(carts.filter((cart) => cart._id !== id));
       setFilteredCarts(filteredCarts.filter((cart) => cart._id !== id));
       alert('Product deleted successfully!');
@@ -95,7 +92,19 @@ function Cards({ edit = '', delt = '' }) {
       filtered = filtered.filter((cart) => cart.price >= min && cart.price <= max);
     }
 
-   
+    // Add other filter logic as needed
+    if (filters.typeOfPlants) {
+      filtered = filtered.filter((cart) =>
+        cart.PlantAbout?.toLowerCase().includes(filters.typeOfPlants.toLowerCase())
+      );
+    }
+    if (filters.light) {
+      filtered = filtered.filter((cart) =>
+        cart.PlantAbout?.toLowerCase().includes(filters.light.toLowerCase())
+      );
+    }
+    // Add similar logic for other filters (idealPlantsLocation, indoorOutdoor, etc.)
+
     setFilteredCarts(filtered);
     setIsFilterOpen(false);
   };
@@ -158,11 +167,7 @@ function Cards({ edit = '', delt = '' }) {
 
   return (
     <div className="bg-gray-100 overflow-hidden">
-      {/* Header Section */}
-     
-      {/* Filter and Sort Navigation Bar */}
       <div className="flex justify-between items-center p-4 bg-white shadow-md relative top-0">
-   
         <button
           className="flex items-center bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600"
           onClick={() => setIsFilterOpen(true)}
@@ -204,7 +209,6 @@ function Cards({ edit = '', delt = '' }) {
         </div>
       </div>
 
-      {/* Filter Sidebar */}
       {isFilterOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-20">
           <div className="absolute right-0 w-80 bg-white h-full p-6 shadow-lg">
@@ -214,17 +218,20 @@ function Cards({ edit = '', delt = '' }) {
             </div>
             <p className="text-gray-600 mb-4">{filteredCarts.length} products</p>
 
-            {/* Filter Options */}
             <div className="space-y-4">
               <div>
-                <button className="flex justify-between w-full text-left py-2">
-                  Type of Plants <span>➔</span>
-                </button>
+                <label className="block text-left py-2">Type of Plants</label>
+                <input
+                  type="text"
+                  name="typeOfPlants"
+                  value={filters.typeOfPlants}
+                  onChange={handleFilterChange}
+                  className="w-full mt-2 p-2 border rounded"
+                  placeholder="e.g., Flowering"
+                />
               </div>
               <div>
-                <button className="flex justify-between w-full text-left py-2">
-                  Price <span>➔</span>
-                </button>
+                <label className="block text-left py-2">Price</label>
                 <select
                   name="priceRange"
                   value={filters.priceRange}
@@ -239,48 +246,19 @@ function Cards({ edit = '', delt = '' }) {
                 </select>
               </div>
               <div>
-                <button className="flex justify-between w-full text-left py-2">
-                  Light <span>➔</span>
-                </button>
+                <label className="block text-left py-2">Light</label>
+                <input
+                  type="text"
+                  name="light"
+                  value={filters.light}
+                  onChange={handleFilterChange}
+                  className="w-full mt-2 p-2 border rounded"
+                  placeholder="e.g., Full Sun"
+                />
               </div>
-              <div>
-                <button className="flex justify-between w-full text-left py-2">
-                  Ideal plants location <span>➔</span>
-                </button>
-              </div>
-              <div>
-                <button className="flex justify-between w-full text-left py-2">
-                  Indoor/Outdoor <span>➔</span>
-                </button>
-              </div>
-              <div>
-                <button className="flex justify-between w-full text-left py-2">
-                  Maintenance <span>➔</span>
-                </button>
-              </div>
-              <div>
-                <button className="flex justify-between w-full text-left py-2">
-                  Pot Size <span>➔</span>
-                </button>
-              </div>
-              <div>
-                <button className="flex justify-between w-full text-left py-2">
-                  Water Schedule <span>➔</span>
-                </button>
-              </div>
-              <div>
-                <button className="flex justify-between w-full text-left py-2">
-                  Color <span>➔</span>
-                </button>
-              </div>
-              <div>
-                <button className="flex justify-between w-full text-left py-2">
-                  Size <span>➔</span>
-                </button>
-              </div>
+              {/* Add similar inputs for other filters */}
             </div>
 
-            {/* Apply and Clear Buttons */}
             <div className="flex justify-between mt-6">
               <button
                 className="bg-green-500 text-white py-2 px-4 rounded w-full mr-2"
@@ -299,7 +277,6 @@ function Cards({ edit = '', delt = '' }) {
         </div>
       )}
 
-      {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6">
         {filteredCarts.length === 0 ? (
           <div className="text-center col-span-full">
@@ -333,13 +310,12 @@ function Cards({ edit = '', delt = '' }) {
                   >
                     🗑️
                   </button>
-                 
                 </div>
               </div>
               <Link to={`/details`} state={{ cart }}>
                 <div className="flex items-center flex-col h-[250px] lg:h-[300px]">
                   <img
-                    src={`http://localhost:5000/api/seller/${cart._id}/image`}
+                    src={cart.imageUrl}
                     alt={cart.PlantName || 'Product'}
                     className="h-full w-full object-cover rounded mb-4"
                     onError={(e) => (e.target.src = '/fallback-image.jpg')}
