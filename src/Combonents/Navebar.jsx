@@ -108,6 +108,9 @@ function    Navebar({ id = '' }) {
           <Link to="/favorite" className="text-sm lg:text-lg font-medium text-white hover:underline">
             Favorite
           </Link>
+           <Link to="/chatapp" className="text-sm lg:text-lg font-medium text-white hover:underline">
+           Chat
+          </Link>
            <Link to="/addtocart" className="text-sm lg:text-lg font-medium text-white hover:underline">
            Cart
           </Link>
@@ -208,7 +211,10 @@ function    Navebar({ id = '' }) {
           <Link to="/profile" className="text-white px-4 py-2">
             Profile
           </Link>
-           <Link to="/addtocart" className="text-sm lg:text-lg font-medium text-white hover:underline">
+          <Link to="/chatapp" className="text-white px-4 py-2">
+           Chat
+          </Link>
+           <Link to="/addtocart" className="text-white px-4 py-2">
            Cart
           </Link>
         </div>

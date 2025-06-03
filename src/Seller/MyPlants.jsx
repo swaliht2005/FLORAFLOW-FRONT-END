@@ -9,7 +9,7 @@ function MyPlants() {
   const [userPlants, setUserPlants] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); // Mobile sidebar toggle
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
   const navigate = useNavigate();
 
   useEffect(() => {
